@@ -1,9 +1,99 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import validator from 'validator';
+import { connect } from 'react-redux';
+import { addEmail } from '../redux/actions/index';
 
 class Login extends React.Component {
+  state = {
+    valueEmail: '',
+    emails: false,
+    senha: false,
+    disabled: true,
+  };
+
+  validateEmail = ({ target }) => {
+    const { value } = target;
+    const validate = validator.isEmail(value);
+    if (validate) {
+      this.setState({ emails: true,
+        valueEmail: value,
+      }, this.validateInputs);
+    } else {
+      this.setState({ emails: false }, this.validateInputs);
+    }
+  };
+
+  validateSenha = ({ target }) => {
+    const { value } = target;
+    const min = 6;
+    const validate = value.length >= min;
+    if (validate) {
+      this.setState({ senha: true }, this.validateInputs);
+    } else {
+      this.setState({ senha: false }, this.validateInputs);
+    }
+  };
+
+  validateInputs = () => {
+    const { senha, emails } = this.state;
+    const valida = senha && emails;
+    if (valida) {
+      this.setState({ disabled: false });
+    } else {
+      this.setState({ disabled: true });
+    }
+  };
+
+  handleClick = () => {
+    const { dispatch, history } = this.props;
+    const { valueEmail } = this.state;
+    dispatch(addEmail(valueEmail));
+    history.push('/carteira');
+  };
+
   render() {
-    return <div>Login</div>;
+    const { disabled } = this.state;
+    return (
+      <section>
+        <label>
+          email:
+          <input
+            name="email"
+            type="text"
+            data-testid="email-input"
+            onChange={ this.validateEmail }
+          />
+        </label>
+        <label>
+          senha:
+          <input
+            name="senha"
+            type="password"
+            data-testid="password-input"
+            onChange={ this.validateSenha }
+          />
+        </label>
+        <button
+          disabled={ disabled }
+          onClick={ this.handleClick }
+        >
+          Entrar
+
+        </button>
+      </section>
+    );
   }
 }
+const mapStateToProps = (state) => ({
+  email: state.email,
+});
 
-export default Login;
+export default connect(mapStateToProps)(Login);
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

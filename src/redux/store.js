@@ -1,19 +1,12 @@
-import { createStore } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import reducer from './reducers/user';
 
-// Reducer
-const initialState = { count: 0 };
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-  case 'INCREMENT':
-    return { count: state.count + 1 };
-  case 'DECREMENT':
-    return { count: state.count - 1 };
-  default:
-    return state;
-  }
-};
-
-const store = createStore(reducer);
+if (window.Cypress) {
+  window.store = store;
+}
 
 export default store;
