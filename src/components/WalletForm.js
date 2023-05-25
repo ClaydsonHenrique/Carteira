@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addcurrencies } from '../redux/actions/index';
 
 class WalletForm extends Component {
+  componentDidMount() {
+    this.fetchApiTEst();
+  }
+
+  fetchApiTEst = async () => {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    const keys = Object.keys(data).filter((key) => key !== 'USDT');
+    const { dispatch } = this.props;
+    dispatch(addcurrencies(keys));
+  };
+
   render() {
+    const { currencies } = this.props;
     return (
       <div>
         <label>
@@ -13,7 +29,9 @@ class WalletForm extends Component {
           <input type="text" data-testid="description-input" />
         </label>
         <select data-testid="currency-input">
-          <option>name</option>
+          {currencies.map((moeda, index) => (
+            <option key={ index }>{moeda}</option>
+          ))}
         </select>
         <select data-testid="method-input">
           <option value="Dinheiro">Dinheiro</option>
@@ -31,5 +49,13 @@ class WalletForm extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
 
-export default WalletForm;
+export default connect(mapStateToProps)(WalletForm);
+
+WalletForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
