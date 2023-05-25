@@ -11,9 +11,12 @@ class WalletForm extends Component {
   fetchApiTEst = async () => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
+    const valores = Object.entries(data);
     const keys = Object.keys(data).filter((key) => key !== 'USDT');
     const { dispatch } = this.props;
     dispatch(addcurrencies(keys));
+    const filterconcurrice = valores.map((valor) => valor[1]);
+    console.log(filterconcurrice);
   };
 
   render() {
@@ -45,6 +48,7 @@ class WalletForm extends Component {
           <option value="Transporte">Transporte</option>
           <option value="Saúdes">Saúde</option>
         </select>
+        <button> Adicionar despesa</button>
       </div>
     );
   }

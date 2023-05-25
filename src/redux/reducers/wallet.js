@@ -2,8 +2,8 @@
 import { ADD_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
-
   currencies: [],
+  despesas: [],
 
 };
 
