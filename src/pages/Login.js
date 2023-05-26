@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 import { connect } from 'react-redux';
 import { addEmail } from '../redux/actions/index';
-import './login.css';
 
 class Login extends React.Component {
   state = {
