@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiTest, addexpense } from '../redux/actions';
+import { fetchApiTest, addexpense, totaldivida } from '../redux/actions';
 
 class WalletForm extends Component {
   constructor() {
@@ -41,7 +41,8 @@ class WalletForm extends Component {
       tag,
     } = this.state;
     const { dispatch } = this.props;
-    const result = await dispatch(fetchApiTest());
+    const resultado = await dispatch(fetchApiTest());
+    console.log(resultado);
     dispatch(
       addexpense({
         id,
@@ -50,13 +51,17 @@ class WalletForm extends Component {
         currency,
         method,
         tag,
-        exchangeRates: result,
+        exchangeRates: resultado,
       }),
     );
+    const filter = Object.entries(resultado).filter((moeda) => moeda[0] !== 'USDT');
+    const filtered = filter.find((moeda) => moeda[0] === currency);
+    const getAsk = Number(filtered[1].ask) * Number(value);
     this.setState({ id: id + 1,
       value: '',
       description: '',
     });
+    dispatch(totaldivida(getAsk));
   };
 
   render() {
@@ -66,7 +71,6 @@ class WalletForm extends Component {
       currency,
       method,
       tag } = this.state;
-    console.log(method, tag, currency);
 
     const { currencies } = this.props;
     return (

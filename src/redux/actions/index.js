@@ -11,9 +11,15 @@ export const addcurrencies = (currencies) => ({
 });
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
-export const addexpense = (expenses) => ({
+export const addexpense = (...expenses) => ({
   type: ADD_EXPENSE,
   payload: expenses,
+});
+
+export const TOTAL_DIVIDA = 'TOTAL_DIVIDA';
+export const totaldivida = (divida) => ({
+  type: TOTAL_DIVIDA,
+  payload: Number(divida),
 });
 
 export function fetchApiTest() {
@@ -22,6 +28,6 @@ export function fetchApiTest() {
     const data = await response.json();
     const filtered = Object.entries(data).filter((moeda) => moeda[0] !== 'USDT');
     dispatch(addcurrencies(filtered));
-    return filtered;
+    return data;
   };
 }
