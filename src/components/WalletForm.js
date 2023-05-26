@@ -1,35 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addcurrencies } from '../redux/actions/index';
+import { fetchApiTest } from '../redux/actions';
 
 class WalletForm extends Component {
   componentDidMount() {
-    this.fetchApiTEst();
-  }
-
-  fetchApiTEst = async () => {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    const valores = Object.entries(data);
-    const keys = Object.keys(data).filter((key) => key !== 'USDT');
     const { dispatch } = this.props;
-    dispatch(addcurrencies(keys));
-    const filterconcurrice = valores.map((valor) => valor[1]);
-    console.log(filterconcurrice);
-  };
+    dispatch(fetchApiTest());
+  }
 
   render() {
     const { currencies } = this.props;
+    console.log(currencies);
     return (
-      <div>
+      <div className="container-inputs">
         <label>
           despesas:
-          <input type="text" data-testid="value-input" />
+          <input type="text" data-testid="value-input" className="nameInput" />
         </label>
         <label>
           description:
-          <input type="text" data-testid="description-input" />
+          <input type="text" data-testid="description-input" className="nameInput" />
         </label>
         <select data-testid="currency-input">
           {currencies.map((moeda, index) => (
@@ -60,6 +51,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(WalletForm);
 
 WalletForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
   dispatch: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

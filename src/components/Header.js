@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     const { email } = this.props;
     return (
-      <div>
+      <div className="dados">
         <p data-testid="email-field">
           {' '}
           { email }

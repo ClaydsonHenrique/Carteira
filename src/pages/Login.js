@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 import { connect } from 'react-redux';
 import { addEmail } from '../redux/actions/index';
+import './login.css';
 
 class Login extends React.Component {
   state = {
@@ -55,32 +56,38 @@ class Login extends React.Component {
   render() {
     const { disabled } = this.state;
     return (
-      <section>
-        <label>
-          email:
-          <input
-            name="email"
-            type="text"
-            data-testid="email-input"
-            onChange={ this.validateEmail }
-          />
-        </label>
-        <label>
-          senha:
-          <input
-            name="senha"
-            type="password"
-            data-testid="password-input"
-            onChange={ this.validateSenha }
-          />
-        </label>
-        <button
-          disabled={ disabled }
-          onClick={ this.handleClick }
-        >
-          Entrar
+      <section className="container-login">
+        <h1 className="title">TrybeWallet</h1>
+        <section className="container-input">
+          <label>
+            <input
+              className="input"
+              name="email"
+              type="text"
+              data-testid="email-input"
+              placeholder="email"
+              onChange={ this.validateEmail }
+            />
+          </label>
+          <label>
+            <input
+              className="input senha"
+              name="senha"
+              type="password"
+              data-testid="password-input"
+              placeholder="senha"
+              onChange={ this.validateSenha }
+            />
+          </label>
+          <button
+            className="btn"
+            disabled={ disabled }
+            onClick={ this.handleClick }
+          >
+            Entrar
 
-        </button>
+          </button>
+        </section>
       </section>
     );
   }

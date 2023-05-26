@@ -7,5 +7,17 @@ export const addEmail = (email) => ({
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
 export const addcurrencies = (currencies) => ({
   type: ADD_CURRENCIES,
-  payload: currencies,
+  payload: currencies.map((moeda) => moeda[1].code),
 });
+
+export function fetchApiTest() {
+  return (dispatch) => {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(addcurrencies(
+          Object.entries(data).filter((moeda) => moeda[0] !== 'USDT'),
+        ));
+      });
+  };
+}

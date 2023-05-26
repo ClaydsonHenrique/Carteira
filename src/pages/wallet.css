@@ -1,0 +1,33 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+.container{
+background-image: url('https://s1.1zoom.me/b5050/327/Money_Banknotes_Dollars_Bitcoin_Gold_color_606246_1920x1080.jpg');
+background-position: center;
+height: 100vh;
+}
+
+.container-header{
+
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 15px;
+}
+
+.dados{
+display: flex;
+gap: 15px;
+justify-content: center;
+align-items: center;
+}
+
+.nameInput{
+width: 100px;
+border: 1px solid black;
+border-radius: 4px;
+margin-right: 5px;
+}

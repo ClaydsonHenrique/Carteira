@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 };
 
 const reducerWallet = (state = INITIAL_STATE, action) => {
-  console.log(state);
   switch (action.type) {
   case ADD_CURRENCIES:
     return {
