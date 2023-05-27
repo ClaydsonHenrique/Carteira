@@ -56,6 +56,12 @@ class Table extends Component {
                       <td>Real</td>
                       <td>
                         <button
+                          data-testid="edit-btn"
+                        >
+                          editar
+
+                        </button>
+                        <button
                           data-testid="delete-btn"
                           onClick={ () => this.deleteDivida(id, valor) }
                         >
