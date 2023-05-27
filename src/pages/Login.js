@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import validator from 'validator';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { addEmail } from '../redux/actions/index';
 
 class Login extends React.Component {
@@ -46,14 +47,15 @@ class Login extends React.Component {
   };
 
   handleClick = () => {
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     const { valueEmail } = this.state;
     dispatch(addEmail(valueEmail));
-    history.push('/carteira');
   };
 
   render() {
     const { disabled } = this.state;
+    const { history } = this.props;
+    console.log(history);
     return (
       <section className="container-login">
         <h1 className="title">TrybeWallet</h1>
@@ -78,14 +80,16 @@ class Login extends React.Component {
               onChange={ this.validateSenha }
             />
           </label>
-          <button
-            className="btn"
-            disabled={ disabled }
-            onClick={ this.handleClick }
-          >
-            Entrar
+          <Link to="/carteira">
+            <button
+              className="btn"
+              disabled={ disabled }
+              onClick={ this.handleClick }
+            >
+              Entrar
 
-          </button>
+            </button>
+          </Link>
         </section>
       </section>
     );
