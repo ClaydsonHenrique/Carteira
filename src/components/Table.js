@@ -44,6 +44,7 @@ class Table extends Component {
                     exchangeRates,
                   ).find((item) => item.code === currency);
                   const valor = (Number(value) * Number(filterExchange.ask)).toFixed(2);
+                  console.log(expenses);
                   return (
                     <tr key={ id }>
                       <td>{description}</td>
