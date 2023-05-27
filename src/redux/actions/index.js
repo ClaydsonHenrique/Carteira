@@ -21,6 +21,12 @@ export const totaldivida = (divida) => ({
   type: TOTAL_DIVIDA,
   payload: Number(divida),
 });
+export const REMOVE_DIVIDA = 'REMOVE_DIVIDA';
+export const removedivida = (id, value) => ({
+  type: REMOVE_DIVIDA,
+  payload: id,
+  valor: value,
+});
 
 export function fetchApiTest() {
   return async (dispatch) => {

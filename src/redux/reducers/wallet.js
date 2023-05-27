@@ -1,10 +1,11 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { ADD_CURRENCIES, ADD_EXPENSE, TOTAL_DIVIDA } from '../actions';
+import { ADD_CURRENCIES, ADD_EXPENSE, TOTAL_DIVIDA, REMOVE_DIVIDA } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   dividaTotal: 0,
+  moeda: '',
 };
 
 const reducerWallet = (state = INITIAL_STATE, action) => {
@@ -22,7 +23,13 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   case TOTAL_DIVIDA:
     return {
       ...state,
-      dividaTotal: (parseFloat(state.dividaTotal) + action.payload).toFixed(2),
+      dividaTotal: (Number(state.dividaTotal) + Number(action.payload)).toFixed(2),
+    };
+  case REMOVE_DIVIDA:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload),
+      dividaTotal: (Number(state.dividaTotal) - Number(action.valor)).toFixed(2),
     };
   default:
     return state;

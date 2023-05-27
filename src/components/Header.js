@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
     const { email, dividaTotal } = this.props;
+
     return (
       <div className="dados">
         <p data-testid="email-field">

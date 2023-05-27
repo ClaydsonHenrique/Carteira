@@ -42,7 +42,6 @@ class WalletForm extends Component {
     } = this.state;
     const { dispatch } = this.props;
     const resultado = await dispatch(fetchApiTest());
-    console.log(resultado);
     dispatch(
       addexpense({
         id,
