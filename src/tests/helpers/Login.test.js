@@ -44,7 +44,7 @@ test('verificando componentes na pagina', async () => {
   });
 });
 
-test('verificando se estado global é alterado ao clicar no btn', () => {
+test('verificando se estado global é alterado ao clicar no btn', async () => {
   const { store } = renderWithRouterAndRedux(
     <Login />,
     { initialEntries, initialState },
